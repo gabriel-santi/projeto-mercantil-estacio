@@ -5,3 +5,7 @@
         python manage.py runserver 
     - Criar um app:
          python manage.py startapp polls
+    - Criar migration(após criar model):
+        python manage.py makemigration
+    - Fazer migration:
+        python manage.py migrate
