@@ -1,0 +1,7 @@
+[ COMANDOS ]
+    - Iniciar o projeto com django:
+        django-admin startproject mysite
+    - Rodar o projeto localmente(dentro do diretório do projeto):
+        python manage.py runserver 
+    - Criar um app:
+         python manage.py startapp polls
