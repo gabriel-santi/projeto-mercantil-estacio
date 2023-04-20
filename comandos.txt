@@ -8,4 +8,4 @@
     - Criar migration(após criar model):
         python manage.py makemigration
     - Fazer migration:
-        python manage.py migrate
+        python manage.py migrate        
