@@ -1,0 +1,142 @@
+/* VARIAVEIS */
+
+:root {
+    --cor-azul-primario: #144BC8;
+    --cor-azul-chip: #B5DBFF;
+    --cor-fonte-primaria: #3E4044;
+    --espacamento: 20px;
+    --radius: 20px;
+    --fonte-grande: 20px;
+    --fonte-padrao: 18px;
+    --fonte-pequena: 12px;
+}
+
+/* VALORES GERAIS */
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    position: static;
+    background-color: rgb(227, 255, 255);
+}
+
+* {
+    font-family: 'Montserrat', 'Verdana';
+    box-sizing: border-box;
+    color: var(--cor-fonte-primaria);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-weight: 500;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 20px;
+    background: var(--cor-azul-primario);
+}
+
+::-webkit-scrollbar-track {
+    width: 20px;
+    background: var(--cor-azul-chip);
+}
+
+/* HEADER */
+
+header {
+    height: 12%;
+    background-color: var(--cor-azul-primario);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0 80px;
+}
+
+.logo-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logo {
+    height: 3em;
+    margin-right: var(--espacamento);
+}
+
+.logo-container h1 {
+    color: #ffffff;
+    font-size: large;
+}
+
+/* CONTEUDO */
+
+main {
+    padding: 50px 90px;
+    width: 100%;
+}
+
+/* GRID DOS CARDS */
+
+.produtos-container {
+    height: 90%;
+    width: 100%;
+    margin-top: 30px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+/* CARD */
+
+.card-produto {
+    background-color: #fff;
+    border-radius: var(--radius);
+    box-shadow: 5px 5px 10px rgba(185, 185, 185, 0.5);
+
+    padding: 30px;
+    height: 110px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    position: relative;
+}
+
+.card-quantidade {
+    position: absolute;
+    top: -10px;
+    left: -15px;
+    background-color: var(--cor-azul-chip);
+    padding: 5px 10px;
+    border-radius: var(--radius);
+}
+
+.card-label {
+    color: var(--cor-fonte-primaria);
+    opacity: .5;
+    font-size: var(--fonte-pequena);
+}
+
+.card-valor {
+    margin-top: 5px;
+    font-size: var(--fonte-padrao);
+}
