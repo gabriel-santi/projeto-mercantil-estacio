@@ -24,21 +24,27 @@
     </header>
     <main>
         <h4>Produtos:</h4>
+        {% if lista_produtos %}
         <div class="produtos-container">
+            {% for produto in lista_produtos %}
             <div class="card-produto">
                 <div class="card-quantidade">
-                    12x
+                    {{ produto.quantidade }}x
                 </div>
                 <div class="card-descricao">
                     <div class="card-label">Produto</div>
-                    <div class="card-valor">Leite Moça 300ml</div>
+                    <div class="card-valor">{{ produto.prod_desc }}</div>
                 </div>
                 <div class="card-preco">
                     <div class="card-label">Preço unitário</div>
-                    <div class="card-valor">R$7,00</div>
+                    <div class="card-valor">R${{produto.obterValorFormatado}}</div>
                 </div>
             </div>
+            {% endfor %}
         </div>
+        {% else %}
+        <h4>Sem produtos adicionados</h4>
+        {% endif %}
     </main>
 </body>
 
