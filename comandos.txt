@@ -6,6 +6,6 @@
     - Criar um app:
          python manage.py startapp polls
     - Criar migration(após criar model):
-        python manage.py makemigration
+        python manage.py makemigrations
     - Fazer migration:
         python manage.py migrate        
