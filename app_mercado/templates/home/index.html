@@ -42,8 +42,29 @@
             </div>
             {% endfor %}
         </div>
+
+        <div class="paginacao">
+
+            {% if lista_produtos.has_previous %}
+            <a href="?pagina={{ lista_produtos.previous_page_number }}">
+                <div class="btn-paginacao">
+                    <img src="{% static 'assets/previous_icon.svg' %}">
+                </div>
+            </a>
+            {% endif %}
+
+            <span class="pagina-atual">{{ lista_produtos.number }} de {{ lista_produtos.paginator.num_pages }}</span>
+
+            {% if lista_produtos.has_next %}
+            <a href="?pagina={{ lista_produtos.next_page_number }}">
+                <div class="btn-paginacao">
+                    <img src="{% static 'assets/next_icon.svg' %}">
+                </div>
+            </a>
+            {% endif %}
+        </div>
         {% else %}
-        <h4>Sem produtos adicionados</h4>
+        <h4>Sem produtos registrados.</h4>
         {% endif %}
     </main>
 </body>

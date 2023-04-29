@@ -90,6 +90,14 @@ header {
 main {
     padding: 20px 90px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main h4 {
+    align-self: start;
 }
 
 /* GRID DOS CARDS */
@@ -139,4 +147,18 @@ main {
     margin-top: 5px;
     font-size: var(--fonte-padrao);
     word-break: break-all;
+}
+
+/* PAGINAÇÃO */
+
+.paginacao {
+    margin-top: var(--espacamento);
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.pagina-atual {
+    color: var(--cor-fonte-primaria);
+    opacity: .5;
 }
