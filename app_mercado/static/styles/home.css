@@ -7,7 +7,7 @@
     --espacamento: 20px;
     --radius: 20px;
     --fonte-grande: 20px;
-    --fonte-padrao: 18px;
+    --fonte-padrao: 16px;
     --fonte-pequena: 12px;
 }
 
@@ -88,7 +88,7 @@ header {
 /* CONTEUDO */
 
 main {
-    padding: 50px 90px;
+    padding: 20px 90px;
     width: 100%;
 }
 
@@ -111,8 +111,7 @@ main {
     border-radius: var(--radius);
     box-shadow: 5px 5px 10px rgba(185, 185, 185, 0.5);
 
-    padding: 30px;
-    height: 110px;
+    padding: 20px 30px;
 
     display: flex;
     flex-direction: row;
@@ -139,4 +138,5 @@ main {
 .card-valor {
     margin-top: 5px;
     font-size: var(--fonte-padrao);
+    word-break: break-all;
 }
