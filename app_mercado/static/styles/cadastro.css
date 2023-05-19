@@ -1,0 +1,101 @@
+/* VARIAVEIS */
+
+:root {
+    --cor-azul-primario: #144BC8;
+    --cor-azul-chip: #B5DBFF;
+    --cor-fonte-primaria: #3E4044;
+    --espacamento: 20px;
+    --radius: 20px;
+    --fonte-grande: 20px;
+    --fonte-padrao: 16px;
+    --fonte-pequena: 12px;
+}
+
+/* VALORES GERAIS */
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    position: static;
+    background-color: rgb(227, 255, 255);
+}
+
+* {
+    font-family: 'Montserrat', 'Verdana';
+    box-sizing: border-box;
+    color: var(--cor-fonte-primaria);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-weight: 500;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 20px;
+    background: var(--cor-azul-primario);
+}
+
+::-webkit-scrollbar-track {
+    width: 20px;
+    background: var(--cor-azul-chip);
+}
+
+/* HEADER */
+
+header {
+    height: 12%;
+    background-color: var(--cor-azul-primario);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0 80px;
+}
+
+.logo-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logo {
+    height: 3em;
+    margin-right: var(--espacamento);
+}
+
+.logo-container h1 {
+    color: #ffffff;
+    font-size: large;
+}
+
+/* CONTEUDO */
+
+main {
+    padding: 20px 90px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main h4 {
+    align-self: start;
+}
