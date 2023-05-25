@@ -52,8 +52,7 @@ def login_view(request):
             return redirect('/mercado/')
         else:
             error_message = "Usuário ou senha inválidos"
-            print(error_message)
-            return render(request, 'home/login.html', {'form': AuthenticationForm(), 'error_message': error_message})
+            return render(request, 'home/login.html', {'form': AuthenticationForm(), 'erro': error_message})
 
 def register_view(request):
     if request.method == 'POST':
