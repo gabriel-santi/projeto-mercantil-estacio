@@ -1,10 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, authenticate
 from django.http import HttpResponse
 from django.template import loader
 from django.core.paginator import Paginator
 from .forms import MyForm
-
+from django.contrib.auth.models import User
 from .models import Produto
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     lista_produtos = Produto.objects.all()
@@ -34,3 +37,25 @@ def cadastrar(request):
         form = MyForm()
 
     return HttpResponse(template.render({'form': form}, request))
+
+def login_view(request):
+    if request.method == "GET":
+        return render(request, 'home/login.html', {'form': AuthenticationForm()})
+    else:
+        username = request.POST.get('username')
+        senha = request.POST.get('senha')
+
+        user = authenticate(request, username=username, password=senha)
+
+        if user:
+            login(request, user)
+            return redirect('/mercado/')
+
+def register_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['senha']
+        user = authenticate(request, username=username, password=password)
+    else:
+        form = UserCreationForm()
+        return render(request, 'home/login.html', {'error': 'Invalid credentials'})
