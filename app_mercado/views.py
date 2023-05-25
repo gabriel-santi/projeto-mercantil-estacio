@@ -50,6 +50,10 @@ def login_view(request):
         if user:
             login(request, user)
             return redirect('/mercado/')
+        else:
+            error_message = "Usuário ou senha inválidos"
+            print(error_message)
+            return render(request, 'home/login.html', {'form': AuthenticationForm(), 'error_message': error_message})
 
 def register_view(request):
     if request.method == 'POST':
@@ -58,4 +62,4 @@ def register_view(request):
         user = authenticate(request, username=username, password=password)
     else:
         form = UserCreationForm()
-        return render(request, 'home/login.html', {'error': 'Invalid credentials'})
+        return render(request, 'home/register.html', {'form': form})
