@@ -9,3 +9,22 @@
         python manage.py makemigrations
     - Fazer migration:
         python manage.py migrate        
+
+
+[ TRABALHO ]
+    [ login ]
+    - Cliente
+    - Funcionário
+    - Admin
+
+    [ Adm ]
+    - Adicionar funcionários e clientes
+
+    [ Funcionário ]
+    - Criar e editar produtos
+    - Deletar produtos
+
+    [ Cliente ]
+    - Adicionar produtos no carrinho
+
+    - Quando cliente comprar precisa subtrair do estoque. 
