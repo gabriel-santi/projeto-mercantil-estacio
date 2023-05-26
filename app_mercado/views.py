@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout as django_logout
 from django.http import HttpResponse
 from django.template import loader
 from django.core.paginator import Paginator
@@ -52,6 +52,11 @@ def login_view(request):
             return redirect('index')
         else:
             return render(request, 'home/login.html', {'form': AuthenticationForm(), 'erro': 'Usuário/senha inválido'})
+
+@login_required(login_url='/login/')
+def logout(request):
+    django_logout(request)
+    return redirect('login')
 
 def register_view(request):
     if request.method == 'POST':

@@ -21,8 +21,8 @@
             <img src="{% static 'assets/logo_estacio.png' %}" alt="logo" class="logo">
             <h1>Mercado Estácio</h1>
         </div>
-        <a href="cadastrar">
-            <div class="btn-cadastro">Cadastrar produto</div>
+        <a href="logout">
+            <div class="btn logout">Logout</div>
         </a>
     </header>
     {% if user.is_authenticated and not user.is_staff and not user.is_superuser %}
