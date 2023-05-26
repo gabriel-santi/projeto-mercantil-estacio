@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from .models import Produto
 from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='/login/')
 def index(request):
     lista_produtos = Produto.objects.all()
 
@@ -42,17 +43,15 @@ def login_view(request):
     if request.method == "GET":
         return render(request, 'home/login.html', {'form': AuthenticationForm()})
     else:
-        username = request.POST.get('username')
+        usuario = request.POST.get('usuario')
         senha = request.POST.get('senha')
+        usuario = authenticate(request, username=usuario, password=senha)
 
-        user = authenticate(request, username=username, password=senha)
-
-        if user:
-            login(request, user)
-            return redirect('/mercado/')
+        if usuario is not None:
+            login(request, usuario)
+            return redirect('index')
         else:
-            error_message = "Usuário ou senha inválidos"
-            return render(request, 'home/login.html', {'form': AuthenticationForm(), 'erro': error_message})
+            return render(request, 'home/login.html', {'form': AuthenticationForm(), 'erro': 'Usuário/senha inválido'})
 
 def register_view(request):
     if request.method == 'POST':

@@ -25,6 +25,7 @@
             <div class="btn-cadastro">Cadastrar produto</div>
         </a>
     </header>
+    {% if user.is_authenticated and not user.is_staff and not user.is_superuser %}
     <main>
         <h4>Produtos:</h4>
         {% if lista_produtos %}
@@ -70,6 +71,12 @@
         <h4>Sem produtos registrados.</h4>
         {% endif %}
     </main>
+    {% elif user.is_staff and not user.is_superuser %}
+    <h1>Page de funcionário</h1>
+
+    {% elif user.is_superuser %}
+    <h1>Page de adm</h1>
+    {% endif %}
 </body>
 
 </html>
