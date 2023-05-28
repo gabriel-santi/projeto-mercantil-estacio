@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, authenticate, logout as django_logout
+from django.contrib.auth import login, authenticate, logout as django_logout, get_user_model
 from django.http import HttpResponse
 from django.template import loader
 from django.core.paginator import Paginator
@@ -12,17 +12,28 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='/login/')
 def index(request):
     lista_produtos = Produto.objects.all()
-
-    paginator = Paginator(lista_produtos, 12)
-    page = request.GET.get('pagina')
-    lista_paginada = paginator.get_page(page)
-
-    dados = {
-        'lista_produtos' : lista_paginada,
-    }
+    usuarioLogado = request.user
+    
+    if usuarioLogado.is_superuser:
+        userModel = get_user_model()
+        lista_usuarios = userModel.objects.all()
+        dados = {
+            'lista_produtos' : lista_produtos,
+            'lista_usuarios': lista_usuarios,
+        }
+    elif usuarioLogado.is_staff:
+        dados = {
+            'lista_produtos' : lista_produtos,
+        }
+    elif usuarioLogado.is_active:
+        paginator = Paginator(lista_produtos, 12)
+        page = request.GET.get('pagina')
+        lista_paginada = paginator.get_page(page)
+        dados = {
+            'lista_produtos' : lista_paginada,
+        }
 
     template = loader.get_template('home/index.html')
-
     return HttpResponse(template.render(dados, request))
 
 def cadastrar(request):

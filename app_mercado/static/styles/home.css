@@ -172,6 +172,30 @@ main h4 {
     word-break: break-all;
 }
 
+.tabela-produtos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-produto-edicao {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.tabela-usuarios {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-usuario {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
 /* PAGINAÇÃO */
 
 .paginacao {

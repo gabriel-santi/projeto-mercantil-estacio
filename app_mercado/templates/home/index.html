@@ -71,12 +71,49 @@
         <h4>Sem produtos registrados.</h4>
         {% endif %}
     </main>
-    {% elif user.is_staff and not user.is_superuser %}
-    <h1>Page de funcionário</h1>
+    {% elif user.is_staff %}
+    <div class="main-container">
+        <h3>Produtos cadastrados: </h3>
+        {% if lista_produtos %}
+        <div class="tabela-produtos">
+            {% for produto in lista_produtos %}
+            <div class="card-produto-edicao">
+                {{ produto.quantidade }}x
+                <div class="card-valor">{{ produto.prod_desc }}</div>
 
-    {% elif user.is_superuser %}
-    <h1>Page de adm</h1>
+                <div class="card-valor">R${{ produto.obterValorFormatado }}</div>
+                <div class="card-acoes">
+                    <button>Editar</button>
+                    <button>Deletar</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <h4>Sem produtos registrados.</h4>
+        {% endif %}
+        {% if user.is_superuser %}
+        <h3>Usuários cadastrados:</h3>
+        <div class="tabela-usuarios">
+            {% if lista_usuarios %}
+            {% for usuario in lista_usuarios %}
+            <div class="card-usuario">
+                nome: {{ usuario.username }}
+                email: {{ usuario.email }}
+                funcionário: {{ usuario.is_staff }}
+                super user : {{ usuario.is_superuser }}
+                <button>Deletar</button>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>Não há usuários cadastrados.</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
     {% endif %}
+
+
 </body>
 
 </html>
