@@ -50,6 +50,7 @@ def cadastrar(request):
 
     return HttpResponse(template.render({'form': form}, request))
 
+# View de login de usuário
 def login_view(request):
     if request.method == "GET":
         return render(request, 'home/login.html', {'form': AuthenticationForm()})
@@ -69,11 +70,22 @@ def logout(request):
     django_logout(request)
     return redirect('login')
 
+# View de registro de usuário
 def register_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['senha']
-        user = authenticate(request, username=username, password=password)
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            password_confirmation = form.cleaned_data.get('password2')
+            if password == password_confirmation:
+                user.set_password(password)
+                user.save()
+                login(request, user)  # Automatically log in the user
+                return redirect('index')
+            else:
+                form.add_error('password2', 'Passwords do not match.')
     else:
         form = UserCreationForm()
-        return render(request, 'home/register.html', {'form': form})
+    return render(request, 'home/register.html', {'form': form})
