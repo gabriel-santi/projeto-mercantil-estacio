@@ -10,12 +10,15 @@
     <form method="post">
         {% csrf_token %}
         {{ form.username.label_tag }} {{ form.username }}
+        {% if form.errors.username %}
+          <div class="error">{{ form.errors.username }}</div>
+        {% endif %}
         {{ form.password1.label_tag }} {{ form.password1 }}
         {{ form.password2.label_tag }} {{ form.password2 }}
-        {% if form.password2.errors %}
-          <div class="error">{{ form.password2.errors }}</div>
+        {% if form.errors.password2 %}
+          <div class="error">{{ form.errors.password2 }}</div>
         {% endif %}
-        <button type="submit">Registrar</button>
-      </form>      
+        <button type="submit">Register</button>
+      </form>  
 </body>
 </html>

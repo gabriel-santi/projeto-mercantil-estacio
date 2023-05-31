@@ -79,13 +79,16 @@ def register_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             password_confirmation = form.cleaned_data.get('password2')
-            if password == password_confirmation:
+            if User.objects.filter(username=username).exists():
+                form.add_error('username', 'Username already exists.')
+            elif password != password_confirmation:
+                form.add_error('password2', 'Passwords do not match.')
+            else:
+                user = form.save(commit=False)
                 user.set_password(password)
                 user.save()
-                login(request, user)  # Automatically log in the user
+                login(request, user)  # LOGA O USUÁRIO APÓS O CADASTRO
                 return redirect('index')
-            else:
-                form.add_error('password2', 'Passwords do not match.')
     else:
         form = UserCreationForm()
     return render(request, 'home/register.html', {'form': form})

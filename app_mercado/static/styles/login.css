@@ -1,0 +1,93 @@
+/* VARIAVEIS */
+
+:root {
+    --cor-azul-primario: #144BC8;
+    --cor-azul-chip: #B5DBFF;
+    --cor-fonte-primaria: #3E4044;
+    --espacamento: 20px;
+    --radius: 20px;
+    --fonte-grande: 20px;
+    --fonte-padrao: 16px;
+    --fonte-pequena: 12px;
+}
+
+/* VALORES GERAIS */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(227, 255, 255);
+}
+
+* {
+    font-family: 'Montserrat', 'Inter', 'sans-serif';
+    
+}
+
+/* ESCOPO DO LOGIN */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 499px;
+    height: 500px;
+    border-radius: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 1px 1px 50px 50px lightblue;
+}
+
+/* INPUTS */
+input {
+    box-sizing: border-box;
+    width: 358px;
+    height: 62px;
+    left: 71px;
+    top: 422px;
+    font-size: 25px;
+    border: 1px solid #144BC8;
+    border-radius: 12px;
+    background-color: white;
+    color: #144BC8;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    -webkit-box-shadow:inset 0 0 5px #000;
+       -moz-box-shadow:inset 0 0 5px #000;
+            box-shadow:inset 0 0 5px #000;
+
+    background: transparent;
+}
+
+/* BOTÃO */
+.submit-button {
+    width: 358px;
+    height: 62px;
+    left: 71px;
+    top: 422px;
+    font-size: 25px;
+    border: 1px solid #144BC8;
+    border-radius: 12px;
+    background-color: white;
+    color: #144BC8;
+}
+
+/* ICONE */
+.icon-estacio {
+    height: 3em;
+
+}
+
+/* DIV DO ICONE E NOME */
+.logo-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+    margin-top: 0px;
+}

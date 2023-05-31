@@ -1,28 +1,38 @@
 <!DOCTYPE html>
+
+{% load static %}
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}">
     <title>Login</title>
 </head>
 
 <body>
-    <form action="{% url 'login'%}" method="POST"> {% csrf_token %}
-        <input type="text" placeholder="nome de usuário" name="usuario">
-        <br>
-        <br>
-        <input type="password" placeholder="Senha" name="senha">
-        <br>
-        <br>
-        {% if erro %}
-        <div class="error-message">
-            {{ erro }}
+    <div class="login-container">
+        <div class="logo-container">
+            <img src="{% static 'assets/estacio_icon.png' %}" alt="estacio icon" class="icon-estacio">
+        <h1>Mercado Estácio</h1>
         </div>
-        {% endif %}
-        <input type="submit" value="Logar">
-    </form>
+        <form action="{% url 'login'%}" method="POST"> {% csrf_token %}
+            <input type="text" placeholder="Nome de usuário" name="usuario">
+            <br>
+            <br>
+            <input type="password" placeholder="Senha" name="senha">
+            <br>
+            <br>
+            {% if erro %}
+            <div class="error-message">
+                {{ erro }}
+            </div>
+            {% endif %}
+            <input type="submit" value="Login" class="submit-button">
+        </form>
+    </div>
+    
 </body>
 
 </html>
