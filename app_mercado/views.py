@@ -1,13 +1,14 @@
 from datetime import date
 import datetime
+import json
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate, logout as django_logout, get_user_model
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
-from .models import Produto
+from .models import Produto, Carrinho, ItemCarrinho
 from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/login/')
@@ -27,11 +28,13 @@ def index(request):
             'lista_produtos' : lista_produtos,
         }
     elif usuarioLogado.is_active:
+        carrinho, created = Carrinho.objects.get_or_create(usuario=request.user, finalizado=False)
         paginator = Paginator(lista_produtos, 12)
         page = request.GET.get('pagina')
         lista_paginada = paginator.get_page(page)
         dados = {
             'lista_produtos' : lista_paginada,
+            'carrinho': carrinho
         }
 
     template = loader.get_template('home/index.html')
@@ -79,7 +82,6 @@ def deletar_produto(request, id):
     produto = Produto.objects.get(id=id)
     produto.delete()
     return redirect('index')
-
 
 # View de login de usuário
 def login_view(request):
@@ -139,3 +141,39 @@ def deletar_usuario(request, id):
         usuario.delete()
 
     return redirect('index', {'error': 'Não é possível excluir o próprio usuário'})
+
+@login_required(login_url='/login/')
+def carrinho_adicionar(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        id_produto = data["id"]
+        produto = Produto.objects.get(id=id_produto)
+
+        if request.user.is_authenticated:
+            carrinho, created = Carrinho.objects.get_or_create(usuario=request.user, finalizado=False)
+            itemCarrinho, created = ItemCarrinho.objects.get_or_create(carrinho=carrinho, produto=produto)
+            if produto.quantidade > itemCarrinho.quantidade:
+                itemCarrinho.quantidade += 1
+                itemCarrinho.save()
+            
+            num_de_itens = carrinho.num_de_itens
+            
+            return JsonResponse(num_de_itens, safe=False)
+        
+@login_required(login_url='/login/')
+def carrinho_remover(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        id_produto = data["id"]
+        produto = Produto.objects.get(id=id_produto)
+
+        if request.user.is_authenticated:
+            carrinho, created = Carrinho.objects.get_or_create(usuario=request.user, finalizado=False)
+            itemCarrinho, created = ItemCarrinho.objects.get_or_create(carrinho=carrinho, produto=produto)
+            if itemCarrinho.quantidade > 0:
+                itemCarrinho.quantidade -= 1
+                itemCarrinho.save()
+            
+            num_de_itens = carrinho.num_de_itens
+            
+            return JsonResponse(num_de_itens, safe=False)

@@ -15,7 +15,7 @@ class Produto(models.Model):
         return str(self.prod_desc)
     
 class Carrinho(models.Model):
-    id = models.UUIDField(default=uuid.uuid64, primary_key=True)
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     finalizado = models.BooleanField(default=False)
     
@@ -40,7 +40,7 @@ class ItemCarrinho(models.Model):
     quantidade = models.IntegerField(default=0)
     
     def __str__(self):
-        return self.product.name
+        return self.produto.prod_desc
     
     @property
     def preco(self):
