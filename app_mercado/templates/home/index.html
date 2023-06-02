@@ -21,9 +21,24 @@
             <img src="{% static 'assets/logo_estacio.png' %}" alt="logo" class="logo">
             <h1>Mercado Estácio</h1>
         </div>
-        <a href="logout">
-            <div class="btn logout">Logout</div>
-        </a>
+        <div class="btns-container">
+            {% if user.is_staff %}
+            <a href="{% url 'cadastrar-produto' %}">
+                <div class="btn cadastro">Cadastrar produto</div>
+            </a>
+            {% endif %}
+
+            {% if user.is_superuser %}
+            <a href="{% url 'cadastrar-usuario' %}">
+                <div class="btn cadastro">Cadastrar usuário</div>
+            </a>
+            {% endif %}
+
+            <a href="{% url 'logout' %}">
+                <div class="btn logout">Logout</div>
+            </a>
+        </div>
+
     </header>
     {% if user.is_authenticated and not user.is_staff and not user.is_superuser %}
     <main>
@@ -83,8 +98,12 @@
 
                 <div class="card-valor">R${{ produto.obterValorFormatado }}</div>
                 <div class="card-acoes">
-                    <button>Editar</button>
-                    <button>Deletar</button>
+                    <a href="/produto/editar/{{ produto.id }}">
+                        <button>Editar</button>
+                    </a>
+                    <a href="/produto/deletar/{{ produto.id }}">
+                        <button>Deletar</button>
+                    </a>
                 </div>
             </div>
             {% endfor %}
@@ -99,10 +118,18 @@
             {% for usuario in lista_usuarios %}
             <div class="card-usuario">
                 nome: {{ usuario.username }}
-                email: {{ usuario.email }}
-                funcionário: {{ usuario.is_staff }}
-                super user : {{ usuario.is_superuser }}
-                <button>Deletar</button>
+                {% if usuario.email %}
+                {{ usuario.email }}
+                {% endif %}
+                {% if usuario.is_staff %}
+                Funcionário
+                {% endif %}
+                {% if usuario.is_superuser %}
+                ADM
+                {% endif %}
+                <a href="/usuario/deletar/{{ usuario.id }}">
+                    <button>Deletar</button>
+                </a>
             </div>
             {% endfor %}
             {% else %}

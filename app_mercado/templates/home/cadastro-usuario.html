@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro</title>
+</head>
+
+<body>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.username.label_tag }} {{ form.username }}
+    {% if form.errors.username %}
+    <div class="error">{{ form.errors.username }}</div>
+    {% endif %}
+    {{ form.password1.label_tag }} {{ form.password1 }}
+    {{ form.password2.label_tag }} {{ form.password2 }}
+    {% if form.errors.password2 %}
+    <div class="error">{{ form.errors.password2 }}</div>
+    {% endif %}
+    <label for="funcionario">Funcionário</label>
+    <input type="checkbox" name="funcionario" id="">
+    <button type="submit">Register</button>
+  </form>
+</body>
+
+</html>

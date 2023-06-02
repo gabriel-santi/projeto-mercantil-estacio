@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles/cadastro.css' %}">
+    <title>Mercado Estácio</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="{% static 'assets/logo_estacio.png' %}" alt="logo" class="logo">
+            <h1>Mercado Estácio</h1>
+        </div>
+        <a href="/">
+            <div class="btn-cadastro">Voltar</div>
+        </a>
+    </header>
+
+    <main>
+        <div class="container">
+            <form method="POST">
+                <fieldset>
+                    <legend>Form</legend>
+                    {% csrf_token %}
+                    <input type="text" name="descricao" placeholder="Descrição do produto">
+                    <input type="number" name="quantidade" placeholder="Quantidade">
+                    <input type="number" name="valor" placeholder="Valor">
+                    {% if erro %}
+                    <p>{{ erro }}</p>
+                    {% endif %}
+                    <button type="submit" class="btn btn-salvar">Salvar</button>
+                </fieldset>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

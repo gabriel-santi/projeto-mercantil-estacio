@@ -21,22 +21,33 @@
             <img src="{% static 'assets/logo_estacio.png' %}" alt="logo" class="logo">
             <h1>Mercado Estácio</h1>
         </div>
-        <a href="/mercado">
-            <div class="btn-cadastro">Produtos</div>
+        <a href="/">
+            <div class="btn-cadastro">Voltar</div>
         </a>
     </header>
 
     <main>
+        {% if produto %}
         <div class="container">
             <form method="POST">
                 <fieldset>
                     <legend>Form</legend>
                     {% csrf_token %}
-                    {{ form.as_p }}
+                    <input type="text" hidden="true" name="prod_id" value="{{ produto.id }}">
+                    <input type="text" name="descricao" placeholder="Descrição do produto"
+                        value="{{ produto.prod_desc }}">
+                    <input type="number" name="quantidade" placeholder="Quantidade" value="{{ produto.quantidade }}">
+                    <input type="number" name="valor" placeholder="Valor" step="0.01" value="{{ produto.valor }}">
+                    {% if erro %}
+                    <p>{{ erro }}</p>
+                    {% endif %}
                     <button type="submit" class="btn btn-salvar">Salvar</button>
                 </fieldset>
             </form>
         </div>
+        {% else %}
+        <h2>Erro ao obter produto.</h2>
+        {% endif %}
     </main>
 </body>
 

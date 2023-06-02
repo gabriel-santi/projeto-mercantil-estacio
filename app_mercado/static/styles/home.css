@@ -86,26 +86,37 @@ header {
     font-size: large;
 }
 
-header>a {
+header a {
     text-decoration: none;
-    display: flex;
-    align-items: center;
 }
 
-.logout {
+.btns-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 16px;
+}
+
+.logout,
+.cadastro {
     background-color: transparent;
     color: white;
     border: white 2px solid;
-    padding: 10px 20px;
-    border-radius: 16px;
+
     transition: 300ms;
 }
 
-.logout:hover {
+.logout:hover,
+.cadastro:hover {
     background-color: white;
     color: var(--cor-azul-primario);
     border: var(--cor-azul-primario);
-    scale: 1.05;
+    transform: scale(1.05);
 }
 
 /* CONTEUDO */
