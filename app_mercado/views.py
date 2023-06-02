@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/login/')
 def index(request):
-    lista_produtos = Produto.objects.all()
+    lista_produtos = Produto.objects.order_by("data_reg")
     usuarioLogado = request.user
     
     if usuarioLogado.is_superuser:
@@ -143,22 +143,36 @@ def deletar_usuario(request, id):
     return redirect('index', {'error': 'Não é possível excluir o próprio usuário'})
 
 @login_required(login_url='/login/')
+def carrinho(request):
+    if request.method == 'GET':
+        carrinho = None
+        itensCarrinho = []
+    
+        if request.user.is_authenticated:
+            carrinho, created = Carrinho.objects.get_or_create(usuario=request.user, finalizado=False)
+            itensCarrinho = carrinho.itensCarrinho.all()
+        
+        context = {"carrinho":carrinho, "itens_carrinho":itensCarrinho}
+        template = loader.get_template('home/carrinho.html')
+        return HttpResponse(template.render(context, request))
+
+@login_required(login_url='/login/')
 def carrinho_adicionar(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         id_produto = data["id"]
         produto = Produto.objects.get(id=id_produto)
 
-        if request.user.is_authenticated:
+        if produto.quantidade>0:
             carrinho, created = Carrinho.objects.get_or_create(usuario=request.user, finalizado=False)
             itemCarrinho, created = ItemCarrinho.objects.get_or_create(carrinho=carrinho, produto=produto)
             if produto.quantidade > itemCarrinho.quantidade:
                 itemCarrinho.quantidade += 1
                 itemCarrinho.save()
             
-            num_de_itens = carrinho.num_de_itens
-            
-            return JsonResponse(num_de_itens, safe=False)
+        num_de_itens = carrinho.num_de_itens
+        
+        return JsonResponse(num_de_itens, safe=False)
         
 @login_required(login_url='/login/')
 def carrinho_remover(request):
@@ -167,13 +181,28 @@ def carrinho_remover(request):
         id_produto = data["id"]
         produto = Produto.objects.get(id=id_produto)
 
-        if request.user.is_authenticated:
-            carrinho, created = Carrinho.objects.get_or_create(usuario=request.user, finalizado=False)
-            itemCarrinho, created = ItemCarrinho.objects.get_or_create(carrinho=carrinho, produto=produto)
-            if itemCarrinho.quantidade > 0:
-                itemCarrinho.quantidade -= 1
-                itemCarrinho.save()
-            
-            num_de_itens = carrinho.num_de_itens
-            
-            return JsonResponse(num_de_itens, safe=False)
+        carrinho, created = Carrinho.objects.get_or_create(usuario=request.user, finalizado=False)
+        itemCarrinho, created = ItemCarrinho.objects.get_or_create(carrinho=carrinho, produto=produto)
+        if itemCarrinho.quantidade > 1:
+            itemCarrinho.quantidade -= 1
+            itemCarrinho.save()
+        else:
+            itemCarrinho.delete()
+        
+        num_de_itens = carrinho.num_de_itens
+        
+        return JsonResponse(num_de_itens, safe=False)
+    
+@login_required(login_url='/login/')
+def carrinho_finalizar(request, pk):
+    carrinho = Carrinho.objects.get(id=pk)
+    itensCarrinho = carrinho.itensCarrinho.all()
+
+    for item in itensCarrinho:
+        produto = Produto.objects.get(id=item.get_id)
+        produto.quantidade = produto.quantidade - item.quantidade
+        produto.save() 
+
+    carrinho.finalizado = True
+    carrinho.save()
+    return redirect("index")

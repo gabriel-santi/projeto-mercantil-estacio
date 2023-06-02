@@ -38,7 +38,7 @@ function adicionarAoCarrinho(e) {
     })
         .then(res => res.json())
         .then(data => {
-            document.getElementById("items_carrinho").innerHTML = data
+            document.getElementById("itens_carrinho").innerHTML = data
             console.log(data)
         })
         .catch(error => {
@@ -65,7 +65,7 @@ function removerDoCarrinho(e) {
     })
         .then(res => res.json())
         .then(data => {
-            document.getElementById("items_carrinho").innerHTML = data
+            document.getElementById("itens_carrinho").innerHTML = data
             console.log(data)
         })
         .catch(error => {

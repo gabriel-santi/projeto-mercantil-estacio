@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles/home.css' %}">
+    <title>Mercado Estácio</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="{% static 'assets/logo_estacio.png' %}" alt="logo" class="logo">
+            <h1>Mercado Estácio</h1>
+        </div>
+        <div class="btns-container">
+            <a href="{% url 'index' %}">
+                <div class="btn logout">Voltar</div>
+            </a>
+
+            <a href="{% url 'logout' %}">
+                <div class="btn logout">Logout</div>
+            </a>
+        </div>
+
+    </header>
+
+    <main>
+        <h3>Produtos adicionados no carrinho: </h3>
+        {% if itens_carrinho %}
+        {% for item in itens_carrinho %}
+        <div class="item-carrinho">
+            <p class="item-quantidade">{{ item.quantidade }}</p>
+            <p class="item-nome">{{ item.produto.prod_desc }}</p>
+            <p class="item-valor">Preço unitário: R${{ item.preco_unitario }}</p>
+            <p class="item-valor-total">Preço total: R${{ item.preco }}</p>
+        </div>
+        {% endfor %}
+        <div class="area-pagamento">
+            <h4>Total: R$ {{ carrinho.preco_total }}</h4>
+            <a href="/carrinho/finalizar/{{ carrinho.id }}">
+                <button>Pagar</button>
+            </a>
+        </div>
+        {% else %}
+        <p>Sem produtos no carrinho</p>
+        {% endif %}
+    </main>
+</body>
+
+</html>

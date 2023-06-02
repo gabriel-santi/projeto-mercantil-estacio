@@ -25,7 +25,7 @@ class Carrinho(models.Model):
     @property
     def preco_total(self):
         itensCarrinho = self.itensCarrinho.all()
-        total = sum([item.valor for item in itensCarrinho])
+        total = sum([item.preco for item in itensCarrinho])
         return total
     
     @property
@@ -46,3 +46,12 @@ class ItemCarrinho(models.Model):
     def preco(self):
         novoPreco = self.produto.valor * self.quantidade
         return novoPreco
+    
+    @property
+    def preco_unitario(self):
+        novoPreco = self.produto.valor
+        return novoPreco
+    
+    @property
+    def get_id(self):
+        return self.produto.id

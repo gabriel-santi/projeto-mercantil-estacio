@@ -22,6 +22,11 @@
             <h1>Mercado Estácio</h1>
         </div>
         <div class="btns-container">
+            {% if not user.is_staff %}
+            <a href="{% url 'carrinho' %}">
+                <div class="btn cadastro">Carrinho: <span id="itens_carrinho">{{ carrinho.num_de_itens }}</span></div>
+            </a>
+            {% endif %}
             {% if user.is_staff %}
             <a href="{% url 'cadastrar-produto' %}">
                 <div class="btn cadastro">Cadastrar produto</div>
@@ -42,10 +47,6 @@
     </header>
     {% if user.is_authenticated and not user.is_staff and not user.is_superuser %}
     <main>
-        {% if carrinho %}
-        <h4>Num de itens no carrinho <span id="items_carrinho">{{ carrinho.num_de_itens }}</p>
-        </h4>
-        {% endif %}
         <h4>Produtos:</h4>
         {% if lista_produtos %}
         <div class="produtos-container">
